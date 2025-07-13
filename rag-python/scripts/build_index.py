@@ -6,7 +6,7 @@ from sentence_transformers import SentenceTransformer
 from docx import Document
 import fitz  # PyMuPDF
 
-# Load a free embedding model from Hugging Face
+
 model = SentenceTransformer("all-MiniLM-L6-v2")
 dimension = 384
 index = faiss.IndexFlatIP(dimension)

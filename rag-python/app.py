@@ -7,13 +7,13 @@ import requests
 
 app = FastAPI()
 
-# Load embedding model
+
 model = SentenceTransformer("all-MiniLM-L6-v2")
 
-# Load FAISS index
+
 index = faiss.read_index("legal_index.faiss")
 
-# ✅ FIX: open metadata file with UTF-8 encoding
+
 with open("metadata.json", encoding="utf-8") as f:
     metadata = json.load(f)
 
@@ -23,24 +23,24 @@ async def rag_query(req: Request):
         body = await req.json()
         question = body["query"]
 
-        # Embed the query
+
         q_embed = model.encode(
             [question],
             normalize_embeddings=True
         ).astype("float32")
 
-        # Search index for top 5 chunks
+
         D, I = index.search(q_embed, k=5)
 
-        # Retrieve top chunks
+
         top_chunks = [metadata[i] for i in I[0]]
 
-        # Prepare context for LLM
+
         context = "\n\n".join(
             [f"{c['text']} (Source: {c['source']})" for c in top_chunks]
         )
 
-        # Construct prompt
+
         prompt = f"""You are a legal assistant. Answer the following question strictly using only the context provided.
 
 Context:
@@ -50,7 +50,7 @@ Question:
 {question}
 """
 
-        # 🔥 Call Ollama with streaming response
+
         r = requests.post(
             "http://localhost:11434/api/chat",
             json={
@@ -62,7 +62,7 @@ Question:
             stream=True
         )
 
-        # 🔥 Read Ollama's streamed JSON lines
+
         chunks = []
         for line in r.iter_lines():
             if line:
@@ -76,7 +76,7 @@ Question:
                 if "message" in data:
                     chunks.append(data["message"]["content"])
 
-        # Join all partial tokens
+
         answer = "".join(chunks)
 
         return {
