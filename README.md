@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 # 🧠 Lexi.sg RAG Backend
 
 This project demonstrates a **hybrid Retrieval-Augmented Generation (RAG)** system combining:
@@ -167,3 +168,6 @@ Rapid prototyping of vector search logic: Using FAISS and Hugging Face models in
 =======
 # lexi.sg-rag-backend-test
 >>>>>>> e7c22873fea99fb02c4fd96e7c7664051d291ec3
+=======
+# lexi.sg-rag-backend-test
+>>>>>>> 83aee5a3bbc45f986cc6ea7f0764b6ff7bbe452b
