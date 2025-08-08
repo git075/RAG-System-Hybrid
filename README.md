@@ -1,5 +1,5 @@
 
-# 🧠 Lexi.sg RAG Backend
+# 🧠 RAG Backend
 
 This project demonstrates a **hybrid Retrieval-Augmented Generation (RAG)** system combining:
 
